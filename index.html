@@ -1,12 +1,27 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>4jr_CONTINUUM</title>
+
     <link rel="icon" type="image/png" href="assets/img/4jr_fundoPreto.png">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="assets/css/style.css">
+
+    <style>
+      /* Pequenos ajustes visuais para botões e áreas editáveis */
+      .editable {
+        min-height: 36px;
+        padding: 6px 8px;
+        border-radius: 4px;
+      }
+      .editable:focus {
+        outline: 2px solid rgba(13,110,253,0.25);
+        background: rgba(255,255,255,0.02);
+      }
+      .btn-row { display:flex; gap:8px; margin-top:10px; flex-wrap:wrap; }
+    </style>
 </head>
 <body>
 <header class="fixed-top d-flex align-items-center justify-content-between px-4 header-custom">
@@ -18,38 +33,261 @@
         <div class="col-lg-5">
             <div class="card card-custom p-4 mt-4">
                 <h4 class="text-center mb-3 text-white">NOTÍCIAS</h4>
-                <p id="noticias" class="text-center" contenteditable="true">
+                <!-- área editável para notícias -->
+                <p id="noticias" class="text-center editable text-white" contenteditable="true" aria-label="Notícias">
                     <strong>TODOS</strong> ___ FERIADO NO EUA (DIA DE AÇÃO DE GRAÇAS)
                 </p>
                 <small class="text-center text-secondary d-block" style="font-size: 12px;">
                     (Clique no texto acima para editar)
                 </small>
+                <div class="btn-row">
+                  <button id="saveNoticiasBtn" class="btn btn-success">Salvar Notícias</button>
+                  <button id="resetNoticiasBtn" class="btn btn-outline-secondary">Recarregar</button>
+                </div>
             </div>
+
             <div class="card card-custom p-4 mt-4">
                 <h4 class="text-center mb-3 text-white">ENTRADAS</h4>
-                <p class="text-center" contenteditable="true">
+                <!-- área editável para entradas -->
+                <p id="entradas" class="text-center editable text-white" contenteditable="true" aria-label="Entradas">
                     🎖️ <strong>50 | 90 | 160</strong> 🎖️
                 </p>
+                <div class="btn-row">
+                  <button id="saveEntradasBtn" class="btn btn-success">Salvar Entradas</button>
+                  <button id="resetEntradasBtn" class="btn btn-outline-secondary">Recarregar</button>
+                </div>
             </div>
+
             <div class="card card-custom p-4 mt-4">
                 <h4 class="text-center mb-3 text-white">🎓 AULA DE ESTUDOS</h4>
                 <p class="text-center">
                     <strong>Continue de onde parou:</strong>
-                    <a href="https://youtu.be/ppyxs_ealtA?t=1087" target="_blank" class="text-info link-aula">
+                    <a href="#" id="aulaLink" target="_blank" class="text-info link-aula">
                         ▶️ Assistir Aula
                     </a>
                 </p>
+                <div class="btn-row">
+                  <button id="editAulaBtn" class="btn btn-success">Editar URL da Aula</button>
+                  <button id="resetAulaBtn" class="btn btn-outline-secondary">Recarregar</button>
+                </div>
             </div>
         </div>
+
         <div class="col-lg-7">
             <div class="card card-custom p-3">
                 <div class="iframe-container">
-                    <iframe id="calendario" src="https://sslecal2.investing.com?columns=exc_flags,exc_currency,exc_importance,exc_actual,exc_forecast,exc_previous&features=datepicker,timezone&countries=17,25,32,6,37,26,5,22,39,10,35,43,38,4,36,12,72&calType=day&timeZone=12&lang=12" allowtransparency="true"></iframe>
+                    <iframe id="calendario" src="https://sslecal2.investing.com?columns=exc_flags,exc_currency,exc_importance,exc_actual,exc_forecast,exc_previous&features=datepicker,timezone&countries=17,25,32,6,37,26,5,22,39,10,35,43,38,4,36,12,72&calType=day&timeZone=12&lang=12" allowtransparency="true" style="width:100%;height:520px;border:0;"></iframe>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+<!-- Supabase JS (v2) -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+
+<script>
+/*
+  Atenção:
+  - Use a SUPABASE_ANON_KEY abaixo (anon public key). 
+  - Se você não quiser expor a anon key no front-end, crie rotas serverless (ex.: Vercel/Netlify) que façam proxy e mantenham a service_role/secret no server.
+*/
+
+const SUPABASE_URL = "https://xdlrvyzevemkwyvjwqzn.supabase.co"; // fornecido por você
+const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InhkbHJ2eXpldmVta3d5dmp3cXpuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjQyNjEzMDQsImV4cCI6MjA3OTgzNzMwNH0.76L-dZsHeOPLoyNe2aoxp2A1kVNNujD0EawyjpeeJ4s"; // <--- substitua por sua anon public key
+
+const supabase = supabaseJs.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+// Elementos
+const noticiasEl = document.getElementById('noticias');
+const entradasEl = document.getElementById('entradas');
+const aulaLinkEl = document.getElementById('aulaLink');
+
+const saveNoticiasBtn = document.getElementById('saveNoticiasBtn');
+const resetNoticiasBtn = document.getElementById('resetNoticiasBtn');
+
+const saveEntradasBtn = document.getElementById('saveEntradasBtn');
+const resetEntradasBtn = document.getElementById('resetEntradasBtn');
+
+const editAulaBtn = document.getElementById('editAulaBtn');
+const resetAulaBtn = document.getElementById('resetAulaBtn');
+
+let noticiasRow = null;
+let entradasRow = null;
+let aulaRow = null;
+
+/* UTIL: escape minimal para evitar injeção de tags quando quiser exibir texto puro
+   (no entanto estamos usando contenteditable HTML; mantenha cuidado com HTML malicioso) */
+function sanitizeHtml(s){
+  return String(s).replaceAll('<script','&lt;script').replaceAll('</script','&lt;/script');
+}
+
+/* CARREGAR DADOS — tenta selecionar primeiro registro de cada tabela; se não existir, cria um */
+async function loadData() {
+  // NOTÍCIAS
+  try {
+    let { data: noticiasData, error: nErr } = await supabase
+      .from('noticias')
+      .select('*')
+      .order('id', { ascending: true })
+      .limit(1);
+
+    if (nErr) throw nErr;
+    if (!noticiasData || noticiasData.length === 0) {
+      // cria registro inicial
+      const { data: insN } = await supabase.from('noticias').insert([{ conteudo: noticiasEl.innerHTML }]);
+      noticiasRow = insN?.[0] ?? null;
+    } else {
+      noticiasRow = noticiasData[0];
+      noticiasEl.innerHTML = noticiasRow.conteudo ?? noticiasEl.innerHTML;
+    }
+  } catch (e) {
+    console.error("Erro ao carregar noticias:", e);
+  }
+
+  // ENTRADAS
+  try {
+    let { data: entradasData, error: eErr } = await supabase
+      .from('entradas')
+      .select('*')
+      .order('id', { ascending: true })
+      .limit(1);
+
+    if (eErr) throw eErr;
+    if (!entradasData || entradasData.length === 0) {
+      const { data: insE } = await supabase.from('entradas').insert([{ conteudo: entradasEl.innerHTML }]);
+      entradasRow = insE?.[0] ?? null;
+    } else {
+      entradasRow = entradasData[0];
+      entradasEl.innerHTML = entradasRow.conteudo ?? entradasEl.innerHTML;
+    }
+  } catch (e) {
+    console.error("Erro ao carregar entradas:", e);
+  }
+
+  // AULAS
+  try {
+    let { data: aulasData, error: aErr } = await supabase
+      .from('aulas')
+      .select('*')
+      .order('id', { ascending: true })
+      .limit(1);
+
+    if (aErr) throw aErr;
+    if (!aulasData || aulasData.length === 0) {
+      // cria registro inicial com href atual (se existir)
+      const initialLink = aulaLinkEl.href && aulaLinkEl.href !== location.href + '#' ? aulaLinkEl.href : '';
+      const { data: insA } = await supabase.from('aulas').insert([{ link: initialLink }]);
+      aulaRow = insA?.[0] ?? null;
+      if (aulaRow && aulaRow.link) aulaLinkEl.href = aulaRow.link;
+    } else {
+      aulaRow = aulasData[0];
+      if (aulaRow.link) aulaLinkEl.href = aulaRow.link;
+    }
+  } catch (e) {
+    console.error("Erro ao carregar aulas:", e);
+  }
+
+  console.log("Dados carregados:", { noticiasRow, entradasRow, aulaRow });
+}
+
+/* SALVAR NOTÍCIAS */
+async function saveNoticias() {
+  const conteudo = noticiasEl.innerHTML.trim();
+  if (!noticiasRow) {
+    const { data, error } = await supabase.from('noticias').insert([{ conteudo }]);
+    if (error) return alert("Erro ao salvar notícias: " + error.message);
+    noticiasRow = data?.[0];
+    alert("Notícias criadas!");
+    return;
+  }
+
+  const { error } = await supabase.from('noticias').update({ conteudo }).eq('id', noticiasRow.id);
+  if (error) {
+    console.error(error);
+    alert("Erro ao atualizar notícias: " + error.message);
+  } else {
+    alert("Notícias salvas com sucesso!");
+  }
+}
+
+/* SALVAR ENTRADAS */
+async function saveEntradas() {
+  const conteudo = entradasEl.innerHTML.trim();
+  if (!entradasRow) {
+    const { data, error } = await supabase.from('entradas').insert([{ conteudo }]);
+    if (error) return alert("Erro ao salvar entradas: " + error.message);
+    entradasRow = data?.[0];
+    alert("Entradas criadas!");
+    return;
+  }
+
+  const { error } = await supabase.from('entradas').update({ conteudo }).eq('id', entradasRow.id);
+  if (error) {
+    console.error(error);
+    alert("Erro ao atualizar entradas: " + error.message);
+  } else {
+    alert("Entradas salvas com sucesso!");
+  }
+}
+
+/* EDITAR / SALVAR AULA (URL) */
+async function editAula() {
+  const current = aulaRow?.link || aulaLinkEl.href || '';
+  const url = prompt("Cole a URL da aula (YouTube / vídeo):", current);
+  if (!url) return;
+
+  // simples validação de URL
+  try {
+    new URL(url);
+  } catch (e) {
+    alert("URL inválida.");
+    return;
+  }
+
+  if (!aulaRow) {
+    const { data, error } = await supabase.from('aulas').insert([{ link: url }]);
+    if (error) return alert("Erro ao salvar link da aula: " + error.message);
+    aulaRow = data?.[0];
+  } else {
+    const { error } = await supabase.from('aulas').update({ link: url }).eq('id', aulaRow.id);
+    if (error) return alert("Erro ao atualizar link da aula: " + error.message);
+  }
+
+  aulaLinkEl.href = url;
+  alert("Link da aula atualizado!");
+}
+
+/* FUNÇÕES RESET (recarregar do servidor) */
+async function resetNoticias() {
+  await loadData();
+  alert("Notícias recarregadas do servidor.");
+}
+async function resetEntradas() {
+  await loadData();
+  alert("Entradas recarregadas do servidor.");
+}
+async function resetAula() {
+  await loadData();
+  alert("Aula recarregada do servidor.");
+}
+
+/* Eventos */
+saveNoticiasBtn.addEventListener('click', saveNoticias);
+resetNoticiasBtn.addEventListener('click', resetNoticias);
+
+saveEntradasBtn.addEventListener('click', saveEntradas);
+resetEntradasBtn.addEventListener('click', resetEntradas);
+
+editAulaBtn.addEventListener('click', editAula);
+resetAulaBtn.addEventListener('click', resetAula);
+
+/* Inicializa */
+document.addEventListener('DOMContentLoaded', () => {
+  loadData();
+});
+</script>
+
 <script src="assets/js/script.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
