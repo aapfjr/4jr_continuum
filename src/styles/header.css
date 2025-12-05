@@ -40,4 +40,88 @@ header {
 .nav-item.active a {
     color: var(--color-cinzaClaro);
     border-bottom: 3px solid var(--color-verdeLimaoBrilhante);
+
+}
+
+/* --- TABLET (ATÉ 1024px) --- */
+@media (max-width: 1024px) {
+
+    header {
+        padding: 18px 30px;
+    }
+
+    #nav_logo {
+        font-size: 22px;
+    }
+
+    #nav_list {
+        gap: 35px;
+    }
+
+    .nav-item a {
+        font-size: 17px;
+    }
+}
+
+
+/* --- MOBILE (ATÉ 768px) --- */
+@media (max-width: 768px) {
+
+    header {
+        width: 95%;
+        padding: 14px 22px;
+        top: 15px;
+        border-radius: 16px;
+    }
+
+    #navbar {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+    }
+
+    #nav_logo {
+        font-size: 20px;
+    }
+
+    #nav_list {
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 20px;
+        justify-content: flex-start;
+        width: 100%;
+    }
+
+    .nav-item a {
+        font-size: 16px;
+    }
+}
+
+
+/* --- MOBILE PEQUENO (ATÉ 480px) --- */
+@media (max-width: 480px) {
+
+    header {
+        width: 97%;
+        padding: 12px 18px;
+        top: 10px;
+        border-radius: 14px;
+    }
+
+    #nav_logo {
+        font-size: 18px;
+    }
+
+    #nav_list {
+        flex-direction: column;
+        gap: 14px;
+    }
+
+    .nav-item a {
+        font-size: 15px;
+    }
+
+    .nav-item.active a {
+        border-bottom-width: 2px;
+    }
 }
