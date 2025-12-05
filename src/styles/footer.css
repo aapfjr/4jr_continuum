@@ -1,3 +1,4 @@
+/* --- LAYOUT DESKTOP --- */
 footer {
     background-color: var(--color-verdeLimao);
 }
@@ -14,9 +15,45 @@ footer {
     font-weight: 500;
 }
 
-@media screen and (max-width: 600px) {
+/* --- TABLET (ATÉ 1024px) --- */
+@media (max-width: 1024px) {
+
+    #footer_items {
+        padding: 0px 6% 20px 6%;
+        gap: 20px;
+    }
+
+    #copyright {
+        font-size: 15px;
+    }
+}
+
+/* --- MOBILE (ATÉ 768px) --- */
+@media (max-width: 768px) {
+
     #footer_items {
         flex-direction: column;
-        gap: 20px;
+        padding: 0px 5% 20px 5%;
+        gap: 18px;
+        text-align: center;
+    }
+
+    #copyright {
+        font-size: 14px;
+    }
+}
+
+/* --- MOBILE PEQUENO (ATÉ 480px) --- */
+@media (max-width: 480px) {
+
+    #footer_items {
+        flex-direction: column;
+        padding: 0px 4% 18px 4%;
+        gap: 14px;
+        text-align: center;
+    }
+
+    #copyright {
+        font-size: 13px;
     }
 }
