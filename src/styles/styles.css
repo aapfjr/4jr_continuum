@@ -1,0 +1,59 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+@import url('header.css');
+@import url('home.css');
+@import url('menu.css');
+@import url('tradingsystem.css');
+@import url('footer.css');
+
+:root {
+
+    --color-branco: #FFFFFF; /* BRANCO */
+    --color-preto: #000000; /* PRETO */
+    --color-cinzaClaro: #E0E0E0; /* CINZA CLARO */
+    --color-cinzaEscuro: #222222; /* CINZA ESCURO */
+    --color-verdeLimaoBrilhante: #CFF527; /* VERDE LIMÃO BRILHANTE */
+    --color-verdeLimao: #7FFF00; /* VERDE LIMÃO (VERDE-CHARTREUSE) */
+    --color-douradoMetalico: #DAA520; /* VERDE LIMÃO (VERDE-CHARTREUSE) */
+
+}
+
+* {
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    background-color: var(--color-preto);
+}
+
+section {
+    padding: 28px 8%;
+}
+
+.section-title {
+    color: var(--color-branco);
+    font-size: 1.1rem;
+    text-align: center;
+}
+
+.section-subtitle {
+    color: var(--color-verdeLimao);
+    font-size: 2.1875rem;
+} 
+
+.shape {
+    background-color: var(--color-verdeLimao);
+    width: 50%;
+    height: 100%;
+    position: absolute;
+    border-radius: 40% 30% 0% 20%;
+    top: 0;
+    right: 0;
+    z-index: 1;
+}

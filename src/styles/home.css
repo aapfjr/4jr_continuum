@@ -1,0 +1,141 @@
+/* --- LAYOUT DESKTOP --- */
+#home {
+    display: flex;
+    flex-direction: row;
+    align-items: center; /* ALINHA VERTICALMENTE */
+    justify-content: space-between;
+    min-height: calc(100vh - 25px);
+    position: relative;
+}
+
+#cta {
+    width: 35%;
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+}
+
+#cta .title {
+    font-size: 4rem;
+    color: var(--color-branco);
+    text-align: left;
+}
+
+#cta .title span {
+    color: var(--color-verdeLimao);
+}
+
+#cta .description {
+    font-size: 1.1rem;
+    color: var(--color-cinzaClaro);
+}
+
+#cta .description span {
+    color: var(--color-verdeLimao);
+}
+
+#banner {
+    width: 60%;
+    display: flex;
+    justify-content: flex-end;
+    z-index: 2;
+}
+
+#banner img {
+    max-width: 100%;
+    height: auto;
+}
+
+.shape {
+    width: 50%;
+    height: 100%;
+    position: absolute;
+    border-radius: 40% 30% 0% 20%;
+    top: 0;
+    right: 0;
+    z-index: 1;
+}
+
+
+/* --- TABLET (ATÉ 1024px) --- */
+@media (max-width: 1024px) {
+
+    #home {
+        padding: 0 3%;
+    }
+
+    #cta {
+        width: 50%;
+    }
+
+    #cta .title {
+        font-size: 3rem;
+    }
+
+    #banner {
+        width: 50%;
+    }
+
+    #banner img {
+        max-width: 450px;
+    }
+}
+
+
+/* --- MOBILE (ATÉ 768px) --- */
+@media (max-width: 768px) {
+
+    #home {
+        flex-direction: column;
+        text-align: left;
+        padding: 30px 5%;
+        gap: 40px;
+    }
+
+    #cta {
+        width: 100%;
+        margin-top: 40px;
+    }
+
+    #cta .title {
+        font-size: 2.4rem;
+    }
+
+    #cta .description {
+        font-size: 1rem;
+    }
+
+    #banner {
+        width: 100%;
+        justify-content: center;
+    }
+
+    #banner img {
+        width: 90%;
+        max-width: 380px;
+    }
+
+    .shape {
+        width: 100%;
+        border-radius: 0;
+        opacity: 0.2;
+    }
+}
+
+
+/* --- MOBILE PEQUENO (ATÉ 480px) --- */
+@media (max-width: 480px) {
+
+    #cta .title {
+        font-size: 2rem;
+    }
+
+    #cta .description {
+        font-size: .95rem;
+    }
+
+    #banner img {
+        width: 100%;
+        max-width: 330px;
+    }
+}
