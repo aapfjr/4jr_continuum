@@ -3,12 +3,6 @@
 	min-height: calc(100vh - 91px);
 }
 
-.titlePage {
-	text-align: center;
-	color: var(--color-verdeLimao);
-	font-size: 1.1rem;
-}
-
 .descricaoPage {
 	text-align: justify;
 	color: var(--color-cinzaClaro);
@@ -62,10 +56,37 @@ border-radius:6px;
 backdrop-filter: blur(4px);
 }
 
-/* --- TABLET (ATÉ 1024px) --- */
+/* --- TABLET (ATÉ 1024px) → 4 COLUNAS --- */
+@media (max-width: 1024px) {
+    .gallery {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
 
+/* --- MOBILE (ATÉ 768px) → 3 COLUNAS --- */
+@media (max-width: 768px) {
+    .gallery {
+        grid-template-columns: repeat(3, 1fr);
+    }
+    .descricaoPage {
+        font-size: 1rem;
+    }
+}
 
-/* --- MOBILE (ATÉ 768px) --- */
+/* --- MOBILE PEQUENO (ATÉ 480px) → 2 COLUNAS --- */
+@media (max-width: 480px) {
+    .gallery {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    .caption {
+        font-size: 0.7rem;
+        padding: 5px 6px;
+    }
+}
 
-
-/* --- MOBILE PEQUENO (ATÉ 480px) --- */
+/* --- EXTRA MUITO PEQUENO (ATÉ 360px) → 1 coluna */
+@media (max-width: 360px) {
+    .gallery {
+        grid-template-columns: 1fr;
+    }
+}
