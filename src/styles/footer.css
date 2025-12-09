@@ -3,6 +3,13 @@ footer {
     background-color: var(--color-verdeLimao);
 }
 
+/* IMAGEM OCUPANDO TODA A LARGURA */
+footer img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
 #footer_items {
     display: flex;
     justify-content: space-between;
@@ -19,7 +26,7 @@ footer {
 @media (max-width: 1024px) {
 
     #footer_items {
-        padding: 0px 6% 20px 6%;
+        padding: 0px 6% 22px 6%;
         gap: 20px;
     }
 
@@ -33,9 +40,9 @@ footer {
 
     #footer_items {
         flex-direction: column;
-        padding: 0px 5% 20px 5%;
-        gap: 18px;
         text-align: center;
+        padding: 0px 5% 20px 5%;
+        gap: 8px;
     }
 
     #copyright {
@@ -47,13 +54,11 @@ footer {
 @media (max-width: 480px) {
 
     #footer_items {
-        flex-direction: column;
         padding: 0px 4% 18px 4%;
-        gap: 14px;
-        text-align: center;
+        gap: 6px;
     }
 
     #copyright {
-        font-size: 13px;
+        font-size: 0.9rem;
     }
 }
