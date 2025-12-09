@@ -1,7 +1,5 @@
-# 4jr_continuum
+# 4jr_CONTINUUM
 
-# Do Tech ao Mercado
+Esta página é um projeto didático criado para organizar meus estudos e centralizar conteúdos valiosos do mercado financeiro. Aqui registro minha evolução, reúno ferramentas e salvo materiais dos traders que acompanho e considero importantes para o meu desenvolvimento.
 
-Apaixonado por Informática desde jovem, formei-me em Sistemas de Informação e fundei a **Baixinho Games e Informática**. Depois, descobri o mercado financeiro e passei a registrar minha evolução com transparência, compartilhando experiências para ajudar outros investidores.
-
-Criei esta página para centralizar ferramentas, otimizar meu dia a dia, organizar meus estudos e permitir que qualquer trader — inclusive eu, de qualquer lugar — tenha acesso rápido e eficiente a tudo em um só ambiente.
+Do tech ao mercado, este repositório serve como um ambiente único para estudo contínuo, consulta rápida e aprimoramento diário.
