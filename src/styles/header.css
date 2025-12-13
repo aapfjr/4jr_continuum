@@ -98,6 +98,26 @@ header {
     }
 }
 
+/* --- iPHONE 2532 x 1170 (LARGURA CSS: 390PX) --- */
+@media (max-width: 414px) {
+
+    header {
+        width: 96%;
+        padding: 13px 20px;
+        top: 12px;
+        border-radius: 15px;
+    }
+
+    #nav_list {
+        flex-direction: column;
+        width: 100%;
+        gap: 16px;
+    }
+
+    .nav-item a {
+        font-size: 15.5px;
+    }
+}
 
 /* --- MOBILE PEQUENO (ATÉ 480px) --- */
 @media (max-width: 480px) {
@@ -126,4 +146,5 @@ header {
         border-bottom-width: 2px;
     }
 }
+
 
