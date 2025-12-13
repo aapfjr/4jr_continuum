@@ -122,6 +122,33 @@
     }
 }
 
+/* --- iPHONE 2532×1170 (CSS WIDTH ~390PX) --- */
+/* AJUSTE FINO PARA TELAS COMO IPHONE 12/13/14/15 */
+@media (max-width: 414px) {
+
+    #cta {
+        gap: 22px;
+    }
+
+    #cta .title {
+        font-size: 2.15rem;
+        line-height: 2.5rem;
+    }
+
+    #cta .description {
+        font-size: 0.97rem;
+    }
+
+    #banner img {
+        width: 95%;
+        max-width: 310px;
+    }
+
+    .shape {
+        opacity: 0.18;
+        border-radius: 0 0 20% 0;
+    }
+}
 
 /* --- MOBILE PEQUENO (ATÉ 480px) --- */
 @media (max-width: 480px) {
@@ -138,4 +165,5 @@
         width: 100%;
         max-width: 330px;
     }
+
 }
