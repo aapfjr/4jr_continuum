@@ -145,6 +145,40 @@
 
 }
 
+/* --- iPHONE 2532×1170 (LARGURA CSS ≈ 390px) --- */
+/* AJUSTE EXCLUSIVO PARA OS IPHONES 12/13/14/15 */
+@media (max-width: 414px) {
+
+    #tradingsystem {
+        gap: 22px;
+        padding: 10px;
+    }
+
+    #tradingsystem .section-subtitle {
+        font-size: 1.7rem;
+        line-height: 1.9rem;
+    }
+
+    #calendario {
+        max-width: 290px;
+    }
+
+    .feedback {
+        padding: 10px;
+        gap: 14px;
+    }
+
+    .feedback-avatar {
+        width: 55px;
+        height: 55px;
+    }
+
+    .feedback-content textarea {
+        font-size: 0.9rem;
+        line-height: 1.4;
+    }
+}
+
 /* --- MOBILE PEQUENO (ATÉ 480px) -------- */
 @media (max-width: 480px) {
 
@@ -166,3 +200,4 @@
         gap: 15px;
     }
 }
+
